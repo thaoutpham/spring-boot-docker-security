@@ -1,0 +1,341 @@
+{
+	"info": {
+		"_postman_id": "e12c73d4-5dff-47b7-a1e9-939be8dc6ca6",
+		"name": "crm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19479649"
+	},
+	"item": [
+		{
+			"name": "/authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"sysadmin\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/authenticate",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "pageSize",
+							"value": "20",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "editor",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users/5",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"John\",\r\n    \"middleName\":\"Alex\",\r\n    \"surname\":\"Doe\",\r\n    \"fullName\":\"John Alex Doe\",\r\n    \"phone\":\"0975-118-228\",\r\n    \"email\":\"someone@email.com\",\r\n    \"address\":\"Cau Giay, Hanoi\",\r\n    \"username\":\"user4\",\r\n    \"password\":\"password\",\r\n    \"rePassword\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 5,\r\n    \"firstName\":\"Leonel\",\r\n    \"middleName\":\"\",\r\n    \"surname\":\"Messi\",\r\n    \"fullName\":\"Leonel Messi\",\r\n    \"phone\":\"0975-118-228\",\r\n    \"email\":\"someone@email.com\",\r\n    \"address\":\"Cau Giay, Hanoi\",\r\n    \"username\":\"userr4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "change password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "rePassword",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users/changePassword/5",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"changePassword",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/users/5",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/actuator",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger-UI.html",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{API-GATEWAY}}/api/v1/swagger-ui.html",
+					"protocol": "http",
+					"host": [
+						"{{API-GATEWAY}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"swagger-ui.html"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
